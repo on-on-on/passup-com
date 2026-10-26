@@ -232,3 +232,103 @@ h2{font-size:1.1em;margin:20px 0 8px}
 .cnt.low{color:var(--bad)}
 .newtag{display:inline-block;font-size:.7em;font-weight:800;color:var(--warn);background:var(--warn-bg);border-radius:999px;padding:1px 7px;margin-left:4px;vertical-align:2px;white-space:nowrap}
 .badge{white-space:nowrap}
+.qimg{margin:0 0 12px;text-align:center}
+.qimg img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:zoom-in}
+.qimg figcaption{color:var(--sub);font-size:.8em;margin-top:4px}
+.zoom-bg{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;padding:12px;overflow:auto}
+.zoom-bg img{max-width:none;width:auto;max-height:none;background:#fff;border-radius:8px}
+@media (max-width:700px){.zoom-bg{align-items:flex-start;justify-content:flex-start}}
+.zoom-x{position:fixed;top:10px;right:10px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.9);font-size:1.5em;cursor:pointer}
+/* 단원 학습: 줄마다 이론·문제 버튼 */
+.topics .tp{cursor:default}
+.topics .tp.off{color:var(--sub)}
+.topics .tp .acts{display:flex;gap:6px;flex:none}
+.topics .go{border:1px solid var(--brand);color:var(--brand);background:none;border-radius:999px;padding:4px 12px;font-size:.8em;font-weight:700;cursor:pointer;min-height:34px;white-space:nowrap}
+.topics .go.fill{background:var(--brand);color:var(--brand-ink)}
+.seg.mix button:disabled{opacity:.5;cursor:default}
+/* 홈: 과목별 연습 카드(칩 버튼) */
+.card.menu.step.static{cursor:default}
+.step .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.step .chip{border:1px solid var(--brand);color:var(--brand);background:var(--card,#fff);border-radius:999px;padding:6px 12px;font-size:.85em;font-weight:700;cursor:pointer;min-height:38px}
+.step .chip:active{background:var(--brand);color:var(--brand-ink)}
+.step .chip:disabled{border-color:var(--line);color:var(--sub);cursor:default}
+/* 과목별 연습: 과목 카드 */
+.menu.step.subj{border:1.5px solid transparent;transition:border-color .15s}
+.menu.step.subj:hover,.menu.step.subj:active{border-color:var(--brand)}
+.menu.step.subj .pno{flex:none;width:52px;height:52px;border-radius:14px;background:var(--brand);color:var(--brand-ink);font-weight:800;font-size:1.15em;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05}
+.menu.step.subj .pno small{font-size:.55em;font-weight:700;opacity:.85}
+.menu.step.subj .t{font-size:1.05em}
+.menu.step.subj .arr{color:var(--brand)}
+.menu.step.subj:disabled{cursor:default}
+.menu.step.subj:disabled .pno{background:var(--line);color:var(--sub)}
+.menu.step.subj:disabled .t,.menu.step.subj:disabled .arr{color:var(--sub)}
+/* 단원 학습: 과목 탭 */
+.atabs{display:flex;gap:6px;margin:4px 0 12px}
+.atabs button{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--card,#fff);border-radius:14px;padding:9px 6px;font-weight:800;font-size:.9em;color:var(--fg);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;word-break:keep-all}
+.atabs button small{font-size:.72em;font-weight:700;color:var(--sub)}
+.atabs button em{font-style:normal;font-size:.75em;font-weight:700;color:var(--sub)}
+.atabs button.on{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.atabs button.on small,.atabs button.on em{color:var(--brand-ink);opacity:.85}
+.topics .tp[data-row]{cursor:pointer}
+.topics .tp.next .nm{font-weight:700}
+.nexttag{display:inline-block;font-size:.72em;font-weight:800;color:var(--brand-ink);background:var(--brand);border-radius:999px;padding:2px 8px;margin:4px 0 0;text-align:left}
+.topics .score{display:inline-block;font-size:.72em;font-weight:800;border-radius:999px;padding:2px 8px;margin:4px 0 0;text-align:left}
+.topics .score.ok{color:var(--brand);background:var(--brand-soft)}
+.topics .score.ng{color:#B42318;background:rgba(180,35,24,.10)}
+/* 단원 진행 상태: 버튼과 다르게 '점 + 글자'로만 표시 */
+.topics .stline{display:flex;align-items:center;gap:8px;margin-top:3px;font-size:.78em;font-weight:700}
+.topics .stat{display:inline-flex;align-items:center;gap:5px}
+.topics .stat i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.topics .stat.done{color:var(--brand)}
+.topics .stat.done i{background:var(--brand)}
+.topics .stat.ing{color:var(--sub)}
+.topics .stat.ing i{border:2px solid var(--brand);background:linear-gradient(90deg,var(--brand) 50%,transparent 50%);width:10px;height:10px;box-sizing:border-box}
+.topics .pts{color:var(--sub);font-weight:600}
+.topics .pts.ng{color:#B42318}
+/* 이론 표(3열 이상): 휴대폰에서는 줄마다 카드처럼 세로로 */
+@media (max-width:600px){
+  .tablewrap.tt{overflow:visible}
+  .tablewrap.tt table,.tablewrap.tt tbody,.tablewrap.tt tr,.tablewrap.tt td{display:block;width:100%}
+  .tablewrap.tt tr:first-child{display:none}
+  .tablewrap.tt tr{padding:10px 14px;border-bottom:1px solid var(--line)}
+  .tablewrap.tt tr:last-child{border-bottom:0}
+  .tablewrap.tt td{padding:2px 0;border:0;white-space:normal!important;position:static!important;background:none!important}
+  .tablewrap.tt td:first-child{font-weight:700;padding-bottom:4px}
+  .tablewrap.tt td:not(:first-child)::before{content:attr(data-h);display:inline-block;min-width:4.5em;color:var(--sub);font-size:.85em;margin-right:6px}
+  .tablewrap.tt code{white-space:normal;word-break:break-all}
+}
+/* ===== 이론 화면: 교재형 레이아웃 ===== */
+.th-head{border-bottom:2px solid var(--brand);padding:4px 0 16px;margin:4px 0 8px}
+.th-sec{font-size:.8em;color:var(--sub);font-weight:600}
+.th-no{display:inline-block;margin-top:10px;font-size:.82em;font-weight:800;letter-spacing:.02em;color:var(--brand-ink);background:var(--brand);border-radius:6px;padding:3px 9px}
+.th-head h1{margin:8px 0 6px;font-size:1.65em;letter-spacing:-.02em}
+.th-freq{font-size:.85em;color:var(--sub);font-weight:600}
+.th-freq span{color:var(--brand);letter-spacing:.08em;margin-left:4px}
+.th-freq i{font-style:normal;color:var(--line)}
+.th-goal{margin:10px 0 0;padding:10px 12px;background:var(--card);border-radius:10px;font-size:.92em;line-height:1.6}
+.th-goal::before{content:"학습 목표";display:block;font-size:.78em;font-weight:800;color:var(--brand);margin-bottom:2px}
+.theory{line-height:1.75}
+.theory h3{display:flex;align-items:baseline;gap:10px;font-size:1.12em;margin:30px 0 10px;color:var(--fg);padding-bottom:6px;border-bottom:1px solid var(--line)}
+.theory h3 .hno{font-size:.82em;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums}
+.theory mark,.th-sum mark,.th-goal mark{background:linear-gradient(transparent 55%,rgba(250,204,21,.45) 55%);color:inherit;padding:0 1px}
+.theory .tip{border-radius:12px;padding:12px 14px;margin:14px 0;line-height:1.65;border-left:4px solid}
+.theory .tip .tip-h{font-size:.8em;font-weight:800;margin-bottom:4px;letter-spacing:.02em}
+.theory .tip.key{background:var(--brand-soft);border-color:var(--brand);color:var(--fg)}
+.theory .tip.key .tip-h{color:var(--brand)}
+.theory .tip.key .tip-h::before{content:"✔ "}
+.theory .tip.trap{background:var(--bad-bg);border-color:var(--bad);color:var(--fg)}
+.theory .tip.trap .tip-h{color:var(--bad)}
+.theory .tip.trap .tip-h::before{content:"⚠ "}
+.theory .tip.ex{background:var(--card);border-color:var(--sub);color:var(--fg)}
+.theory .tip.ex .tip-h{color:var(--sub)}
+.tablewrap.tt td:first-child code{color:var(--brand);font-weight:700;background:none;padding:0}
+.th-sum{margin:28px 0 8px;border:2px solid var(--brand);border-radius:14px;padding:14px 16px 10px}
+.th-sum-h{display:inline-block;font-weight:800;color:var(--brand-ink);background:var(--brand);border-radius:6px;padding:3px 10px;font-size:.85em;margin-bottom:8px}
+.th-sum ol{margin:0;padding-left:1.4em;line-height:1.7}
+.th-sum li{margin:4px 0}
+.th-sum li::marker{color:var(--brand);font-weight:800}
+.theory mark b,.th-sum mark b,.th-goal mark b{font-weight:inherit}
+.th-toc{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}
+.th-toc button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 12px;font-size:.82em;cursor:pointer;min-height:34px;font-family:inherit}
+.th-toc button b{color:var(--brand);margin-right:5px;font-variant-numeric:tabular-nums}
+.th-toc button:active{border-color:var(--brand)}

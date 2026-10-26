@@ -5,8 +5,12 @@ window.PASSUP_CONFIG = {
 
   // 오류 신고(구글폼). 비워 두면 "오류 신고" 버튼이 숨겨집니다.
   // 회계 사이트처럼 쓰려면 컴활용 구글폼을 만든 뒤 아래 형식으로 채우세요.
-  reportFormUrl: "",
-  reportPost: null,
+  reportFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSe_NGfwDCypaQJKMFoBYx6Kf2SZr5OKdqDdI7mzZpQYajb50w/viewform",
+  reportPost: {
+    action: "https://docs.google.com/forms/d/e/1FAIpQLSe_NGfwDCypaQJKMFoBYx6Kf2SZr5OKdqDdI7mzZpQYajb50w/formResponse",
+    id: "entry.2029859032", subject: "entry.1440829230", type: "entry.51043655", memo: "entry.1674945353",
+    types: ["정답이 틀린 것 같음", "해설이 이상함", "문제 오타", "그림이 안 보임", "기타"]
+  },
   // reportPost: {
   //   action: "https://docs.google.com/forms/d/e/(폼ID)/formResponse",
   //   id: "entry.000", subject: "entry.000", type: "entry.000", memo: "entry.000",
