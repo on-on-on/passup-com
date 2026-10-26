@@ -146,6 +146,7 @@
   // ---------- 자료(표/텍스트) ----------
   // card: 이론 표(3열 이상)는 휴대폰에서 줄마다 카드처럼 세로로 펼쳐 보여 줌
   function tableHtml(tbl, card) {
+    tbl = tbl.filter(function (l) { return !/^[\s|:\-]+$/.test(l); }); // 마크다운 구분선(|---|) 줄은 건너뜀
     var rows = tbl.map(function (l) { return l.replace(/^\s*\||\|\s*$/g, "").split("|").map(function (c) { return c.trim(); }); });
     var hd = rows[0], cc = card && hd.length >= 2;
     var h = "<tr>" + hd.map(function (c) { return "<th>" + inl(c) + "</th>"; }).join("") + "</tr>";
