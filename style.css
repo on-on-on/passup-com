@@ -311,7 +311,7 @@ h2{font-size:1.1em;margin:20px 0 8px}
 .th-goal::before{content:"학습 목표";display:block;font-size:.78em;font-weight:800;color:var(--brand);margin-bottom:2px}
 .theory{line-height:1.75}
 .theory h3{display:flex;align-items:baseline;gap:10px;font-size:1.12em;margin:30px 0 10px;color:var(--fg);padding-bottom:6px;border-bottom:1px solid var(--line)}
-.theory h3 .hno{font-size:.82em;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums}
+.theory h3 .hno{font-size:.82em;font-weight:800;color:var(--brand);font-variant-numeric:tabular-nums;flex:none;white-space:nowrap}
 .theory mark,.th-sum mark,.th-goal mark{background:linear-gradient(transparent 55%,rgba(250,204,21,.45) 55%);color:inherit;padding:0 1px}
 .theory .tip{border-radius:12px;padding:12px 14px;margin:14px 0;line-height:1.65;border-left:4px solid}
 .theory .tip .tip-h{font-size:.8em;font-weight:800;margin-bottom:4px;letter-spacing:.02em}
