@@ -294,7 +294,9 @@ h2{font-size:1.1em;margin:20px 0 8px}
   .tablewrap.tt tr:last-child{border-bottom:0}
   .tablewrap.tt td{padding:2px 0;border:0;white-space:normal!important;position:static!important;background:none!important}
   .tablewrap.tt td:first-child{font-weight:700;padding-bottom:4px}
-  .tablewrap.tt td:not(:first-child)::before{content:attr(data-h);display:inline-block;min-width:4.5em;color:var(--sub);font-size:.85em;margin-right:6px}
+  .tablewrap.tt td:not(:first-child)::before{content:attr(data-h);display:block;color:var(--sub);font-size:.78em;margin:6px 0 1px}
+  .tablewrap.tt.two td:not(:first-child)::before{content:none}
+  .tablewrap.tt.two td:first-child{padding-bottom:2px}
   .tablewrap.tt code{white-space:normal;word-break:break-all}
 }
 /* ===== 이론 화면: 교재형 레이아웃 ===== */
@@ -332,3 +334,26 @@ h2{font-size:1.1em;margin:20px 0 8px}
 .th-toc button{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 12px;font-size:.82em;cursor:pointer;min-height:34px;font-family:inherit}
 .th-toc button b{color:var(--brand);margin-right:5px;font-variant-numeric:tabular-nums}
 .th-toc button:active{border-color:var(--brand)}
+
+/* 결과·오답노트: 다시 볼 단원 (줄 전체가 버튼) */
+.wklist{padding:2px 0!important;overflow:hidden}
+.wk{display:flex;align-items:center;gap:10px;width:100%;padding:13px 16px;border:0;border-bottom:1px solid var(--line);background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;min-height:48px}
+.wkmore .wk:last-child{border-bottom:1px solid var(--line)}
+.wklist > .wk:last-of-type{border-bottom:0}
+.wklist:has(.wkbtn) > .wk:last-of-type{border-bottom:1px solid var(--line)}
+.wk .wn{flex:1;min-width:0;line-height:1.4}
+.wk .wc{flex:none;color:var(--sub);font-size:.88em;font-weight:600;white-space:nowrap}
+.wk .wc.hot{color:var(--brand);font-weight:800}
+.wk .chev{flex:none;color:var(--sub);font-size:1.3em;line-height:1;margin-left:2px}
+.wk:active{background:var(--line)}
+.wkbtn{display:block;width:100%;padding:12px;border:0;background:none;color:var(--brand);font:inherit;font-weight:700;font-size:.9em;cursor:pointer}
+/* 강조 상자 안에서는 형광펜을 쓰지 않음(상자 자체가 강조) */
+.theory .tip mark{background:none;padding:0}
+/* 어두운 화면: 형광펜을 밑줄형으로 (대비 확보) */
+@media (prefers-color-scheme:dark){
+  .theory mark,.th-sum mark,.th-goal mark{background:linear-gradient(transparent 84%,rgba(250,204,21,.75) 84%)}
+  .theory .tip mark{background:none}
+}
+.theory .tip .tl{position:relative;padding-left:1em}
+.theory .tip .tl::before{content:"•";position:absolute;left:0;opacity:.7}
+.theory .tip .tl+.tl{margin-top:4px}

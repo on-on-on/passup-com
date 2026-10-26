@@ -148,10 +148,10 @@
   function tableHtml(tbl, card) {
     tbl = tbl.filter(function (l) { return !/^[\s|:\-]+$/.test(l); }); // 마크다운 구분선(|---|) 줄은 건너뜀
     var rows = tbl.map(function (l) { return l.replace(/^\s*\||\|\s*$/g, "").split("|").map(function (c) { return c.trim(); }); });
-    var hd = rows[0], cc = card && hd.length >= 2;
+    var hd = rows[0], cc = card && hd.length >= 2, two = cc && hd.length === 2;
     var h = "<tr>" + hd.map(function (c) { return "<th>" + inl(c) + "</th>"; }).join("") + "</tr>";
     var b = rows.slice(1).map(function (r) { return "<tr>" + r.map(function (c, i) { return "<td" + (cc ? ' data-h="' + esc(hd[i] || "") + '"' : "") + ">" + inl(c) + "</td>"; }).join("") + "</tr>"; }).join("");
-    return '<div class="tablewrap' + (cc ? " tt" : "") + '"><table>' + h + b + "</table></div>";
+    return '<div class="tablewrap' + (cc ? " tt" : "") + (two ? " two" : "") + '"><table>' + h + b + "</table></div>";
   }
   function dataHtml(x) {
     if (!x) return "";
@@ -189,7 +189,7 @@
         // 상자 종류: 첫 줄 제목으로 구분(시험 포인트 → 핵심 / 헷갈리는·함정 → 함정 / 예시 → 예시)
         var k = /함정|헷갈/.test(tip[0]) ? "trap" : /예시|예제/.test(tip[0]) ? "ex" : "key";
         var head = tip[0].match(/^\*\*(.+?)\*\*\s*$/), body = head ? tip.slice(1) : tip;
-        out += '<div class="tip ' + k + '"><div class="tip-h">' + (head ? esc(head[1]) : { key: "핵심", trap: "기출 함정", ex: "예시" }[k]) + "</div>" + body.map(inl).join("<br>") + "</div>"; tip = [];
+        out += '<div class="tip ' + k + '"><div class="tip-h">' + (head ? esc(head[1]) : { key: "핵심", trap: "기출 함정", ex: "예시" }[k]) + "</div>" + body.map(function (l) { return /^\s*[-•]\s+/.test(l) ? '<div class="tl">' + inl(l.replace(/^\s*[-•]\s+/, "")) + "</div>" : "<div>" + inl(l) + "</div>"; }).join("") + "</div>"; tip = [];
       }
     }
     String(src).split("\n").forEach(function (l) {
@@ -467,8 +467,9 @@
       ids.forEach(function (id) { var q = BY_ID[id], a = areaOf(q); (by[a] = by[a] || {})[q.t] = (by[a][q.t] || 0) + 1; });
       SB().areas.forEach(function (a) {
         if (!by[a]) return;
-        h += '<div class="area-title">' + esc(a) + '</div><div class="card" style="padding:4px 16px">' + Object.keys(by[a]).sort(function (x, y) { return topicOrder({ t: x }) - topicOrder({ t: y }); }).map(function (t) {
-          return '<div class="row"><span>' + esc(topicName(t)) + '</span><span><span class="pill">' + by[a][t] + "문항</span>" + (hasTheory(t) ? '<button class="go" data-th="' + t + '">이론</button>' : "") + "</span></div>";
+        h += '<div class="area-title">' + esc(a) + '</div><div class="card wklist">' + Object.keys(by[a]).sort(function (x, y) { return topicOrder({ t: x }) - topicOrder({ t: y }); }).map(function (t) {
+          var th = hasTheory(t), nm = topicName(t).replace(/\s*\(.*\)\s*$/, "");
+          return (th ? '<button class="wk" data-th="' + t + '">' : '<div class="wk">') + '<span class="wn">' + esc(nm) + '</span><span class="wc">' + by[a][t] + "문항</span>" + (th ? '<span class="chev">›</span></button>' : "</div>");
         }).join("") + "</div>";
       });
       h += '<div class="center"><button class="link" id="w-clear">오답노트 비우기</button></div>';
@@ -673,9 +674,17 @@
     }
     var wk = Object.keys(weak).sort(function (x, y) { return weak[y] - weak[x] || (ORDER[x] - ORDER[y]); });
     if (wk.length) {
-      h += '<h2>다시 볼 단원</h2><div class="card" style="padding:4px 16px">' + wk.map(function (t) {
-        return '<div class="row"><span>' + esc(topicName(t)) + '</span><span><span class="pill">' + weak[t] + "문항 틀림</span>" + (hasTheory(t) ? '<button class="go" data-th="' + t + '">이론 보기</button>' : "") + "</span></div>";
-      }).join("") + "</div>";
+      // 결과: 많이 틀린 단원 3개만 먼저, 나머지는 접기. 줄 전체를 눌러 이론으로 이동
+      var shortName = function (t) { return topicName(t).replace(/\s*\(.*\)\s*$/, ""); };
+      var top = weak[wk[0]];
+      var wrow = function (t) {
+        var hot = top >= 2 && weak[t] === top, th = hasTheory(t);
+        return (th ? '<button class="wk" data-th="' + t + '">' : '<div class="wk">') +
+          '<span class="wn">' + esc(shortName(t)) + '</span><span class="wc' + (hot ? " hot" : "") + '">' + weak[t] + "문항 틀림</span>" +
+          (th ? '<span class="chev">›</span></button>' : "</div>");
+      };
+      h += '<h2>다시 볼 단원</h2><div class="card wklist">' + wk.slice(0, 3).map(wrow).join("") +
+        (wk.length > 3 ? '<div class="wkmore" hidden>' + wk.slice(3).map(wrow).join("") + '</div><button class="wkbtn" id="wkmore">단원 더 보기 (' + (wk.length - 3) + ")</button>" : "") + "</div>";
       h += '<p class="sub" style="margin:8px 2px 0">틀린 문제는 오답노트에 저장되었습니다.</p>';
     }
     h += '<h2>문항별 확인</h2><div class="list">' + items.map(function (x, i) {
@@ -688,6 +697,7 @@
     bind("back", function () { leave("home"); });
     bind("home2", function () { leave("home"); });
     bind("tonote", function () { leave("note"); });
+    bind("wkmore", function () { var m = app.querySelector(".wkmore"); if (m) m.hidden = false; this.remove(); });
     bindTheoryLinks();
     app.querySelectorAll("[data-r]").forEach(function (b) { b.onclick = function () { S.reviewIdx = +b.getAttribute("data-r"); go("review"); }; });
   }
